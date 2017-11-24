@@ -1,0 +1,168 @@
+{% load staticfiles %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Login</title>
+  <!-- CORE CSS-->
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css'%}">
+</style>
+
+</head>
+
+{% if messages %}
+{% for message in messages %}
+  <div class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message|safe }}</div>
+{% endfor %}
+{% endif %}
+
+{% if form.errors %}
+<div class="alert alert-error">
+  <h4>Please fix the following errors</h4>
+  <ul>
+    {% for field in form %}
+      {% if field.errors %}
+        {% for error in field.errors %}
+          <li><a href="#id_{{ field.username }}" class="error">{{ error|escape }}</a></li>
+        {% endfor %}
+      {% endif %}
+    {% endfor %}
+  </ul>
+  {% if form.non_field_errors %}
+    {{ form.non_field_errors }}
+  {% endif %}
+</div>
+{% endif %}
+
+<body class="red">
+  <div id="login-page" class="row">
+    <div class="col s12 z-depth-6 card-panel">
+      <form class="login-form" method="POST">{% csrf_token %}{{form.as_tb}}
+        <div class="row">
+          <div class="input-field col s12 center">
+            <img src="{% static 'img/user.png'%}" alt="" class="responsive-img valign profile-image-login">
+            <p class="center login-form-text">Intranet APPGECA</p>
+        </div>
+    </div>
+    <div class="row margin">
+      <div class="input-field col s12">
+        <i class="mdi-social-person-outline prefix"></i>
+        <label data-error="wrong" class="center-align">Usuario</label>
+        {{form.username}}
+    </div>
+</div>
+<div class="row margin">
+    <div class="input-field col s12">
+        <i class="mdi-action-lock-outline prefix"></i>
+        <label data-error="wrong">Contraseña</label>
+        {{form.password}}
+    </div>
+</div>
+{% if form.errors %}
+  <div class="alert">
+      <div class="alert alert-dismissible alert-danger">
+      <button class="close" type="button" data-dismiss="alert">×</button>
+      <h4>Warning!</h4>
+      <p>
+          {{ form.errors }}   
+      </p>
+      </div>
+  </div>
+{% endif %}
+<div class="row">
+    <div class="input-field col s12">
+        <a href="{{ LOGIN_URL }}?next={{ request.path }}" class="btn waves-effect waves-light col s12">Iniciar</a>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s6 m6 l6">
+        <p class="margin medium-small"><a href="/">Inicio</a></p>
+    </div>
+<div class="input-field col s6 m6 l6">
+  <p class="margin medium-small"><a href="/restaurar/">Contraseña Perdida?</a></p>
+</div>         
+</div>               
+</form>
+</div>
+</div>
+
+<center>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script type="text/javascript">
+    $('#demoNotify').click(function(){
+        $.notify({
+          title: "Datos Incorrectos : ",
+          message: "Asegurece De Haber Ingresado los Datos Correctamente!",
+          icon: 'fa fa-check' 
+      },{
+          type: "warning"
+      });
+    });
+    </script>
+    <!-- Post Page - Responsive -->
+    <ins class="adsbygoogle"
+    style="display:inline-block;width:300px;height:250px"
+    data-ad-client="ca-pub-5104998679826243"
+    data-ad-slot="3470684978"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</center>
+
+
+
+  <!-- ================================================
+    Scripts
+    ================================================ -->
+
+    <!-- jQuery Library -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <!--materialize js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+    <script>
+
+    setInterval(function(){const e=document.getElementById("username").value;localStorage.setItem("query",e)},1e3);
+
+    function validations() {
+      let username = document.getElementById('username').value;
+      const message = document.getElementById('messageUser');
+
+      if(isNaN(username)) {
+        message.classList.toggle('none');
+    }
+}
+
+</script>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-27820211-3', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+<footer class="page-footer">
+  <div class="footer-copyright">
+    <div class="container" align="center">
+        © 2017 PROGAMADORES UPTP
+
+    </div>
+</div>
+</footer>
+</body>
+
+</html>
+
+{% endblock content %}
